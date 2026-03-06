@@ -14,7 +14,166 @@
 
 <body class="bg-[#F8FAFC]">
 
+    <header>
+        <div class="navbar  bg-base-100 shadow-sm">
+            <div class="container mx-auto flex justify-between">
 
+                <div class="">
+                    <a class="btn btn-ghost text-xl"> <img class="h-10" src="./assets/github-logo.png " alt="">Github
+                        Issues Tracker</a>
+                </div>
+
+                <div class="flex gap-2 justify-end">
+                    <div>
+                        <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+                    </div>
+
+                    <div class="btn btn-ghost ">
+                        <button class="btn btn-primary">New Issue</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+    <section class="container mx-auto">
+        <div class="w-[1600px]  mt-10 space-y-5">
+
+
+            <div class="bg-white px-5 py-5">
+                <button class="btn btn-primary px-10 cursor-pointer">All</button>
+                <button class="btn btn-outline px-10 cursor-pointer">Open</button>
+                <button class="btn btn-outline px-10 cursor-pointer">Closed</button>
+            </div>
+
+            <div class="bg-white px-5 py-5">
+                <div class="flex justify-between">
+
+                    <div class="flex  items-center gap-2">
+                        <div>
+                            <img src="./assets/Aperture.png" alt="">
+                        </div>
+                        <div class=" ">
+                            <h3 class="font-bold">50 Issues</h3>
+                            <p>Track and manage your project issues</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-5 ">
+                        <div class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded-full bg-[#00A96E]"></div>
+                            <p>Open</p>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded-full bg-[#A855F7]"></div>
+                            <p>Closed</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- modal -->
+            <!-- Open the modal using ID.showModal() method -->
+            <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
+            <dialog id="my_modal_1" class="modal">
+                <div class="modal-box bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-2"> Fix broken image uploads </h2>
+
+                    <div class="flex items-center gap-3  mb-4">
+                        <span class="bg-green-100 text-green-500 text-xs px-4 py-1 rounded-full">
+                            Opened
+                        </span>
+
+                        <span class="text-gray-500"> Opened by Fahim Ahmed </span>
+
+                        <span class="text-gray-400"> 22/02/2025 </span>
+                    </div>
+
+                    <div class="flex gap-2 mb-4">
+                        <span class="bg-red-100 text-red-500 text-xs px-4 py-1 rounded-full">
+                            BUG
+                        </span>
+                        <span class="bg-yellow-100 text-yellow-500 text-xs px-4 py-1 rounded-full">
+                            HELP WANTED
+                        </span>
+                    </div>
+
+
+                    <p class="py-4"> The navigation menu doesn't collapse properly on mobile devices.
+                        Need to fix the responsive behavior.</p>
+
+                    <div class="bg-gray-100 rounded-md p-4 flex justify-between items-center mb-6">
+
+                        <div>
+                            <p class=" text-gray-500">Assignee:</p>
+                            <p class=" font-medium text-gray-700">Fahim Ahmed</p>
+                        </div>
+
+                        <div class="text-center">
+                            <p class=" text-gray-500 mb-1">Priority:</p>
+                           <span class="bg-red-100 text-red-500 text-xs px-4 py-1 rounded-full">
+                            HIGH
+                        </span>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+
+            <div class="grid grid-cols-4">
+                <div class="w-95 bg-white rounded-lg border-t-4 border-green-500 p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <img src="./assets/Open-Status.png" alt="">
+                        </div>
+
+                        <span class="bg-red-100 text-red-500 text-xs px-4 py-1 rounded-full">
+                            HIGH
+                        </span>
+
+                    </div>
+
+                    <h3 class="font-bold"> Fix Navigation Menu On Mobile Devices</h3>
+                    <p>The navigation menu doesn't collapse properly on mobile devices..</p>
+
+
+                    <div class="flex gap-2 mb-3 mt-2">
+                        <span class="bg-red-100 text-red-500 text-xs px-4 py-1 rounded-full">BUG </span>
+                        <span class="bg-yellow-100 text-yellow-500 text-xs px-4 py-1 rounded-full">HELP WANTED </span>
+
+                    </div>
+
+                    <hr class="mb-3 text-gray-400">
+
+                    <div class="space-y-3  text-gray-400">
+                        <p>#1 by john_doe</p>
+                        <p>1/15/2024</p>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </section>
 
     <script src="./main.js"></script>
 </body>
