@@ -18,9 +18,27 @@ if(loginBtn){
     })
 }
 
+function manageSpinner(status){
+    const loader = document.getElementById('loader');
 
+    if(status === true){
+        loader.classList.remove('hidden');
+    }else{
+        loader.classList.add('hidden')
+    }
+}
 
 const issuesCardContainer = document.getElementById('issuesCardContainer');
+const issueTitle = document.getElementById("issueTitle");
+const issueStatus = document.getElementById('issueStatus');
+const issueAuthor = document.getElementById("issueAuthor");
+const issueDate = document.getElementById('issueDate');
+const issueLabels = document.getElementById("issueLabels");
+const issueExplained = document.getElementById('issueExplained');
+const issueAssignee = document.getElementById("issueAssignee");
+const issuePriority = document.getElementById('issuePriority');
+
+
 
 
 // load Issues
@@ -50,6 +68,7 @@ function createLabels(labels){
 
 
 async function displayIssues(issuesData){
+    manageSpinner(true)
     const totalIssuesCount = document.getElementById('totalIssuesCount');
     totalIssuesCount.innerText = `${issuesData.length} Issues`;
    
@@ -68,7 +87,7 @@ async function displayIssues(issuesData){
                         
                     </div> 
 
-                    <h3  class="font-bold"> ${issue.title}</h3>
+                    <h3  onclick="issueDetails(${issue.id})" class="font-bold"> ${issue.title}</h3>
                     <p class="line-clamp-2">${issue.description}</p>
 
 
@@ -88,6 +107,7 @@ async function displayIssues(issuesData){
       `
 
       issuesCardContainer.appendChild(issuesCardBox);
+      manageSpinner(false)
     })
 
 
@@ -96,7 +116,28 @@ async function displayIssues(issuesData){
 
 
 
-
-
 loadIssues()
 
+
+async function issueDetails(issueDetailsID){
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueDetailsID}`)
+    const issuesData = await res.json();
+    issueTitle.innerText = issuesData.data.title;
+    issueStatus.innerText = issuesData.data.status;
+    issueAuthor.innerText = `Opened by ${issuesData.data.author}`
+    issueDate.innerText =  issuesData.data.updatedAt.split("T")[0];
+    issueLabels.innerHTML = createLabels(issuesData.data.labels);
+    issueExplained.innerText = issuesData.data.description;
+    issueAssignee.innerText = issuesData.data.assignee;
+    issuePriority.innerText = issuesData.data.priority;
+    
+
+    const my_modal_1 = document.getElementById("issueDetails").showModal();
+    
+}
+
+
+
+
+
+  
