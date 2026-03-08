@@ -44,7 +44,9 @@ const openBtn = document.getElementById("openBtn");
 const closeBtn = document.getElementById("closeBtn");
 
 
-
+// get  search input 
+const searchInput = document.getElementById("searchInput");
+const searchSubmit = document.getElementById("searchSubmit");
 
 
 
@@ -165,8 +167,6 @@ async function issueDetails(issueDetailsID){
 
 
 
-
-
  allBtn.addEventListener('click' , function(){
     setActiveButton(allBtn);
     displayIssues(allIssues);
@@ -184,3 +184,29 @@ closeBtn.addEventListener('click' , function(){
     const openIssues = allIssues.filter(issue => issue.status === 'closed');
     displayIssues(openIssues);
 })
+
+
+
+
+
+async function searchIssues(searchValue){
+     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+     const data = await res.json();
+    displayIssues(data.data)
+
+   
+}  
+
+
+searchSubmit.addEventListener('click' , function(){
+    const searchValue = searchInput.value.trim()
+        if(searchValue === "")    {
+            displayIssues(allIssues);
+            return;
+        }
+
+
+    searchIssues(searchValue)
+   })
+
+
