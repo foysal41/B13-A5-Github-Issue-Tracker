@@ -27,7 +27,6 @@ function manageSpinner(status){
         loader.classList.add('hidden')
     }
 }
-
 const issuesCardContainer = document.getElementById('issuesCardContainer');
 const issueTitle = document.getElementById("issueTitle");
 const issueStatus = document.getElementById('issueStatus');
@@ -39,13 +38,40 @@ const issueAssignee = document.getElementById("issueAssignee");
 const issuePriority = document.getElementById('issuePriority');
 
 
+// Get Tab buttons
+const allBtn = document.getElementById("allBtn");
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
 
+
+
+
+
+
+function setActiveButton(activeBtn){
+    const tabButtons = [allBtn, openBtn, closeBtn];
+
+    tabButtons.forEach(btn=>{
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline')
+    });
+
+    activeBtn.classList.add('btn-primary');
+    activeBtn.classList.remove('btn-outline');
+    
+}
+
+
+
+let allIssues = [];
 
 // load Issues
 async function loadIssues(){
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
     const issuesDataFromApi = await res.json();
-    displayIssues(issuesDataFromApi.data);
+    allIssues = issuesDataFromApi.data;
+    displayIssues(allIssues);
+    
    
 }
 
@@ -68,6 +94,7 @@ function createLabels(labels){
 
 
 async function displayIssues(issuesData){
+    issuesCardContainer.innerHTML = "";
     manageSpinner(true)
     const totalIssuesCount = document.getElementById('totalIssuesCount');
     totalIssuesCount.innerText = `${issuesData.length} Issues`;
@@ -76,7 +103,7 @@ async function displayIssues(issuesData){
     issuesData.forEach(issue=>{
         const issuesCardBox = document.createElement("div");
           issuesCardBox.innerHTML = `
-            <div id="issuesCardBox" class="w-95 bg-white rounded-lg border-t-4  p-4 mb-3 ${issue.priority === 'low' ? 'border-purple-500' : 'border-green-500'}">
+            <div id="issuesCardBox" class="w-95 bg-white rounded-lg border-t-4  p-4 mb-3 ${issue.status === 'open' ? 'border-purple-500' : 'border-green-500'}">
                     <div class="flex justify-between items-center mb-3">
                         <div>
                             <img src="${issue.status === 'open' ? './assets/Open-Status.png' : './assets/Closed-Status.png'}" alt="">                    
@@ -132,7 +159,7 @@ async function issueDetails(issueDetailsID){
     issuePriority.innerText = issuesData.data.priority;
     
 
-    const my_modal_1 = document.getElementById("issueDetails").showModal();
+    const issueDetails = document.getElementById("issueDetails").showModal();
     
 }
 
@@ -140,4 +167,20 @@ async function issueDetails(issueDetailsID){
 
 
 
-  
+ allBtn.addEventListener('click' , function(){
+    setActiveButton(allBtn);
+    displayIssues(allIssues);
+})
+
+openBtn.addEventListener('click' , function(){
+    setActiveButton(openBtn);
+    const openIssues = allIssues.filter(issue => issue.status === 'open');
+    displayIssues(openIssues);
+})
+
+
+closeBtn.addEventListener('click' , function(){
+    setActiveButton(closeBtn);
+    const openIssues = allIssues.filter(issue => issue.status === 'closed');
+    displayIssues(openIssues);
+})
